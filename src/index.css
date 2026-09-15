@@ -1,0 +1,400 @@
+@import "tailwindcss";
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-terminal-blue: hsl(var(--terminal-blue));
+  --color-terminal-green: hsl(var(--terminal-green));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-card: hsl(var(--card));
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.7s ease-out forwards;
+  --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
+  --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
+  --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
+  --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
+  --animate-meteor: meteor 5s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  @keyframes pulse-subtle {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.75;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes meteor {
+    0% {
+      transform: rotate(215deg) translateX(0);
+      opacity: 1;
+    }
+
+    70% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: rotate(215deg) translateX(-500px);
+      opacity: 0;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    /* Ubuntu Terminal */
+    --background: 326 65% 11%;
+    --foreground: 60 10% 93%;
+
+    --card: 326 65% 13%;
+
+    --primary: 145 60% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --border: 326 30% 25%;
+
+    /* Ubuntu ANSI palette */
+    --terminal-black: #2e3436;
+    --terminal-red: #cc0000;
+    --terminal-green: 145 60% 42%;;
+    --terminal-yellow: #c4a000;
+    --terminal-blue: 213, 51%, 42%;
+    --terminal-purple: #75507b;
+    --terminal-cyan: #06989a;
+    --terminal-white: #d3d7cf;
+
+    --terminal-bright-black: #555753;
+    --terminal-bright-red: #ef2929;
+    --terminal-bright-green: #8ae234;
+    --terminal-bright-yellow: #fce94f;
+    --terminal-bright-blue: #729fcf;
+    --terminal-bright-purple: #ad7fa8;
+    --terminal-bright-cyan: #34e2e2;
+    --terminal-bright-white: #eeeeec;
+  }
+
+  .dark {
+    /* Modern Terminal */
+    --background: 120 20% 4%;
+    --foreground: 120 12% 82%;
+
+    --card: 120 18% 6%;
+
+    --primary: 115 100% 54%;
+    --primary-foreground: 120 30% 4%;
+
+    --border: 120 18% 16%;
+
+    --terminal-black: #080c08;
+    --terminal-red: #ff5555;
+    --terminal-green:115 100% 54%;;
+    --terminal-yellow: #f1fa8c;
+    --terminal-blue: #61afef;
+    --terminal-purple: #c792ea;
+    --terminal-cyan: #56d8d8;
+    --terminal-white: #c8d3c8;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply scroll-smooth;
+    background: hsl(var(--background));
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+
+    font-family:
+      "JetBrains Mono",
+      "Fira Code",
+      "Cascadia Code",
+      "Courier New",
+      monospace;
+
+    font-feature-settings: "rlig" 1, "calt" 1;
+
+    background-image:
+      linear-gradient(
+        rgba(57, 255, 20, 0.025) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(57, 255, 20, 0.025) 1px,
+        transparent 1px
+      );
+
+    background-size: 32px 32px;
+  }
+
+  ::selection {
+    background: rgba(57, 255, 20, 0.2);
+    color: #39ff14;
+  }
+
+  button {
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 640px) {
+    max-width: 640px;
+    padding-inline: 1.5rem;
+  }
+
+  @media (width >= 768px) {
+    max-width: 768px;
+  }
+
+  @media (width >= 1024px) {
+    max-width: 1024px;
+  }
+
+  @media (width >= 1280px) {
+    max-width: 1280px;
+  }
+
+  @media (width >= 1400px) {
+    max-width: 1400px;
+  }
+}
+
+@utility text-glow {
+  @apply relative;
+
+  text-shadow:
+    0 0 5px rgba(57, 255, 20, 0.7),
+    0 0 15px rgba(57, 255, 20, 0.35);
+}
+
+@utility card-hover {
+  @apply transition-all duration-300;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 20px rgba(57, 255, 20, 0.08),
+      inset 0 0 15px rgba(57, 255, 20, 0.025);
+  }
+}
+
+@utility gradient-border {
+  @apply relative rounded-md;
+
+  background:
+    linear-gradient(
+      hsl(var(--card)),
+      hsl(var(--card))
+    )
+    padding-box,
+    linear-gradient(
+      90deg,
+      rgba(57, 255, 20, 0.5),
+      rgba(57, 255, 20, 0.05)
+    )
+    border-box;
+
+  border: 1px solid transparent;
+}
+
+@utility cosmic-button {
+  @apply px-6 py-2 rounded-md font-medium transition-all duration-300;
+
+  background-color: 326 65% 11%;
+  color: 145 60% 42%;
+
+  border: 1px solid rgba(57, 255, 20, 0.35);
+
+  box-shadow:
+    0 0 8px rgba(57, 255, 20, 0.05),
+    inset 0 0 8px rgba(57, 255, 20, 0.02);
+
+  &:hover {
+    background-color: rgba(57, 255, 20, 0.08);
+
+    border-color: rgba(57, 255, 20, 0.7);
+
+    box-shadow:
+      0 0 15px rgba(57, 255, 20, 0.15),
+      inset 0 0 10px rgba(57, 255, 20, 0.03);
+
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@utility star {
+  @apply absolute rounded-full;
+
+  width: 2px;
+  height: 2px;
+
+  background: var(--color-terminal-green) ;
+
+  box-shadow:
+    0 0 6px rgba(57, 255, 20, 0.7),
+    0 0 12px rgba(57, 255, 20, 0.25);
+}
+
+@utility terminal-green {
+  color: var(--terminal-green);
+}
+
+@utility terminal-blue {
+  color: var(--terminal-blue);
+}
+
+@utility terminal-yellow {
+  color: var(--terminal-yellow);
+}
+
+@utility terminal-red {
+  color: var(--terminal-red);
+}
+
+@utility terminal-purple {
+  color: var(--terminal-purple);
+}
+
+@utility meteor {
+  @apply absolute rounded-full;
+
+  background: linear-gradient(
+    to right,
+    #39ff14,
+    rgba(57, 255, 20, 0.4),
+    transparent
+  );
+
+  box-shadow:
+    0 0 8px rgba(57, 255, 20, 0.35),
+    0 0 15px rgba(57, 255, 20, 0.15);
+}
+
+@utility terminal-window {
+  @apply overflow-hidden rounded-md;
+
+  background: #080c08;
+
+  border: 1px solid rgba(57, 255, 20, 0.18);
+
+  box-shadow:
+    0 0 30px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(57, 255, 20, 0.03);
+}
+
+@utility terminal-header {
+  @apply flex items-center gap-2 px-4 py-2;
+
+  background: #101610;
+
+  border-bottom: 1px solid rgba(57, 255, 20, 0.12);
+
+  color: #657565;
+
+  font-size: 0.75rem;
+}
+
+@utility terminal-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #354235;
+}
+
+@utility terminal-prompt {
+  color: #39ff14;
+}
+
+@utility terminal-cursor {
+  display: inline-block;
+
+  width: 8px;
+  height: 1em;
+
+  margin-left: 3px;
+
+  vertical-align: -2px;
+
+  background: #39ff14;
+
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+
+  margin: 0;
+  padding: 0;
+
+  text-align: left;
+}
+
